@@ -15,7 +15,11 @@ export class Service{
     
     async createPost({title,content,slug,featuredImage,userId,status}){
         try {
-            return await this.databases.createDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug, {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                slug, 
+                {
                 title,
                 content,
                 featuredImage,
@@ -25,9 +29,10 @@ export class Service{
         } catch (error) {
             console.log('app write service :: createPost error ', error)
         }
-    }
+        }
+    
 
-    async updatePost({title,content,slug,featuredImage,userId,status}){
+    async updatePost({title,content,slug,featuredImage,status}){
         try {
             return await this.databases.updateDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug,{
                 title,

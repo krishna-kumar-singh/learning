@@ -5,7 +5,7 @@ import Container from "./container/Container";
 import Footer from "./footer/footer";
 import Header from "./header/Header";
 import LogoutBtn from "./header/LogoutBtn";
-import Login from "./login";
+import Login from "./Login";
 import Select from './Select';
 import RTE from './RTE';
 import SignUp from './SignUp'
