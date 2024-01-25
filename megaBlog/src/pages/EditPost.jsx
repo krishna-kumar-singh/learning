@@ -12,6 +12,7 @@ function EditPost() {
             service.getPost(slug).then((post)=>{
                 if (post){
                     setPosts(post)
+                    console.log(post)
                 }
 
             })

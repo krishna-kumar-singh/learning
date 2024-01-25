@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import authService from "./appwrite/auth"
 import {login,logout} from './store/authSlice'
 import { Header,Footer } from "./component/index"
 import {Outlet} from 'react-router-dom'
-
 function App() {
   const [loading,setLoading]=useState(false)
   const dispatch= useDispatch()
