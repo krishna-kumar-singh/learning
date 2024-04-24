@@ -32,7 +32,7 @@ export class Service{
         }
     
 
-    async updatePost({title,content,slug,featuredImage,status}){
+    async updatePost(slug,{title,content,featuredImage,status}){
         try {
             return await this.databases.updateDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug,{
                 title,
@@ -72,20 +72,7 @@ export class Service{
         }
     }
 
-    // async getPosts(queries = [Query.equal("status", "active")]){
-    //     try {
-    //         return await this.databases.listDocuments(
-    //             conf.appwriteDatabaseId,
-    //             conf.appwriteCollectionId,
-    //             queries,
-                
-
-    //         )
-    //     } catch (error) {
-    //         console.log("Appwrite serive :: getPosts :: error", error);
-    //         return false
-    //     }
-    // }
+    
 
 
     // file upload

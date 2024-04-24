@@ -2,17 +2,6 @@ import conf from '../conf/conf.js';
 import { Client, Account, ID } from "appwrite";
 
 
-
-// const 
-
-// const promise = account.create('[USER_ID]', 'email@example.com', '');
-
-// promise.then(function (response) {
-//     console.log(response); // Success
-// }, function (error) {
-//     console.log(error); // Failure
-// });
-
 export class AuthService{
     client = new Client()
     account;
@@ -20,11 +9,11 @@ export class AuthService{
         this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);               
         this.account = new Account(this.client);
     }
-    async createAccount({name,email,password}){
+    async createAccount({email,name,password}){
         try {
             const userAccount=await this.account.create(ID.unique(),email,password,name)
             if (userAccount) {
-                return this.login(email,password);
+                return this.login({email,password});
             } else {
                 console.log(userAccount)
                 return userAccount;
