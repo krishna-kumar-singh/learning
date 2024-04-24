@@ -5,13 +5,14 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import {Login, Protected} from './component/index.js'
+import {Protected} from './component/index.js'
 import AllPost from './pages/AllPost'
 import AddPost from './pages/AddPost.jsx'
 import EditPost from './pages/EditPost.jsx'
 import Post from './pages/Post.jsx'
 import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
+import LoginPage from './pages/Login.jsx'
 const router = createBrowserRouter(
   [
     {
@@ -23,10 +24,10 @@ const router = createBrowserRouter(
           element:<Home/>
         },
         {
-          path:'/login',
+          path:'/sign-in',
           element:(
             <Protected authentication={false}>
-              <Login/>
+              <LoginPage/>
             </Protected>
           ) 
         },
