@@ -3,9 +3,9 @@ import {Container,PostForm } from '../component'
 function AddPost() {
   return (
     <div>
-        <Container>
-            <PostForm/>
-        </Container>
+
+            <PostForm />
+
     </div>
   )
 }

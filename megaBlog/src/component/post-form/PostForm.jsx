@@ -40,9 +40,7 @@ export default function PostForm({ post }) {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
-                console.log("userData", userData);
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData ? userData.$id : null });
-                console.log("dbPost", dbPost);
                 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
@@ -73,52 +71,53 @@ export default function PostForm({ post }) {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
-                <Input
-                    label="Title :"
-                    placeholder="Title"
-                    className="mb-4"
-                    {...register("title", { required: true })}
-                />
-                <Input
-                    label="Slug :"
-                    placeholder="Slug"
-                    className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                    }}
-                />
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+        <form onSubmit={handleSubmit(submit)} className="flex flex-col justify-center items-center  w-full my-8 py-3">
+            <h1 className="text-4xl underline font-bold">{post ?"Update":"Submit"} Blog</h1>
+            <div className="flex flex-row gap-3 w-4/5   justify-center mx-20">
+                <div className="flex-1 flex flex-col justify-center md:w-2/3 px-4">
+                    <Input
+                        label="Title"
+                        placeholder="Enter title"
+                        className="mb-4 p-2 border rounded-md focus:outline-8 focus:border-black "
+                        {...register("title", { required: true })}
+                    />
+                    <Input
+                        label="Slug"
+                        placeholder="Auto-generated slug"
+                        className="mb-4 p-2 border rounded-md focus:outline-8 focus:border-black4"
+                        readOnly
+                        value={getValues("slug")}
+                    />
+                    <Input
+                        label="Featured Image"
+                        type="file"
+                        className="mb-4 p-2 border rounded-md focus:outline-8 focus:border-black"
+                        accept="image/png, image/jpg, image/jpeg, image/gif"
+                        {...register("image", { required: !post })}
+                    />
+                    {post && (
+                        <div className="mb-4">
+                            <img
+                                src={appwriteService.getFilePreview(post.featuredImage)}
+                                alt={post.title}
+                                className="w-4/5 h-auto rounded-lg"
+                            />
+                        </div>
+                    )}
+                    <Select
+                        options={["active", "inactive"]}
+                        label="Status"
+                        className="mb-4 w-28"
+                        {...register("status", { required: true })}
+                    />
+                    <Button type="submit" textColor="white"  className="w-[90px]">{post ?"Update":"Submit"}</Button>
+                </div>
+
+                <div className="flex-1">
+                <RTE label="Content" name="content" control={control} defaultValue={getValues("content")} />
+                </div>
             </div>
-            <div className="w-1/3 px-2">
-                <Input
-                    label="Featured Image :"
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
-                />
-                {post && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
-                    </div>
-                )}
-                <Select
-                    options={["active", "inactive"]}
-                    label="Status"
-                    className="mb-4"
-                    {...register("status", { required: true })}
-                />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Update" : "Submit"}
-                </Button>
-            </div>
+           
         </form>
     );
 }
