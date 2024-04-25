@@ -19,6 +19,7 @@ function Signup() {
 
             if (userData) {
                 const userData = await authService.getAccountUser();
+                localStorage.setItem("token",JSON.stringify(userData))
                 if (userData) dispatch(login({ userData }));
                 navigate('/');
             }

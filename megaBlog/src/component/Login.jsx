@@ -18,7 +18,7 @@ function Login() {
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getAccountUser()
-                console.log("userdata in login",userData)
+                localStorage.setItem("token",JSON.stringify(userData))
                 if(userData){
                      dispatch(authLogin({userData}))
                 }
